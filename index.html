@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Registration</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0px;
+        }
+
+        .submit {
+            margin-top:30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            width: 120px;
+            background-color: rgb(39, 173, 39);
+            color: white;
+            border-radius: 25px;
+            font-family: 'Nunito', sans-serif;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background-color: transparent;
+            color: rgb(39, 173, 39);
+            border: 2px solid rgb(39, 173, 39);
+        }
+    </style>
+</head>
+
+<body style="font-family: 'Nunito', sans-serif;background-color: rgb(27, 33, 49);color:white; ">
+    <h2
+        style="background-color: white;color:rgb(27, 33, 49);height:40px;display:flex;justify-content: center;align-items: center;font-size:30px;">
+        Ticket Registration</h2>
+    <div id="main" style="display:flex;justify-content: space-around;margin-top:30px;">
+        <div>
+            <h3 style="font-size:25px;">Name:</h3>
+            <input type="text" id="name"
+                style="outline: none;border:none;border-radius: 2px;padding:8px;font-family: 'Nunito', sans-serif;">
+            <h3 style="font-size:25px;margin-top:30px;">Email ID</h3>
+            <input type="email" id="email"
+                style="outline: none;border:none;border-radius: 2px;padding:8px;font-family: 'Nunito', sans-serif;">
+            <button onclick="submit()" class="submit">Submit</button>
+        </div>
+        <div>
+            <h2 style = "font-size:25px;">Tickets Left</h2>
+            <h1 id="number" style = "text-align:center;font-size:70px;display:flex;align-items: center;justify-content: center;"></h1>
+        </div>
+    </div>
+    <script>
+
+        function submit() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            fetch("/data", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email }) }).then(function (res) {
+                return (res.json())
+            }).then(function (res2) {
+                alert(res2.message);
+                window.location.href = "/";
+            })
+        }
+             window.onload = api();
+
+             function api()
+             {
+                 fetch("/display").then(function (res){
+                     return res.json();
+                 }).then(function(res2){
+                     document.getElementById("number").innerHTML = res2.ticket;
+                 })
+             }
+    </script>
+</body>
+
+</html>
+
+<!-- display tickets left (route, fs read file ticket-left.txt) and css -->

@@ -1,0 +1,16 @@
+<html>
+<body>
+<input type = "number" id = "num">
+<button id = "update" onclick = "update()">Update</button>
+<script>
+function update(){
+    let num = document.getElementById("num").value
+    fetch("/update/"+ num).then(function (res){
+       return res.json();
+    }).then(function(res2){
+        alert(res2.message);
+    })
+}
+</script>
+</body>
+</html>
