@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 let fs = require("fs");
-let port = process.env.PORT || 5000;
+let PORT = process.env.PORT || 5000;
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
@@ -68,11 +68,11 @@ app.post("/data", function (req, res) {
     })
 })
 
-app.listen(port, function (err) {
+app.listen(PORT, function (err) {
     if (err) {
         console.log(err);
     }
     else {
-        console.log("server is running on port" + " " + port);
+        console.log("server is running on port" + " " + PORT);
     }
 })
